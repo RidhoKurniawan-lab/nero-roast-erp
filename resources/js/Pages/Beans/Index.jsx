@@ -3,6 +3,8 @@ import AuthenticatedLayout from "@/Layout/AuthenticatedLayout";
 import TableHeader from "@/Components/TableComponent/TableHeader";
 import { usePage } from "@inertiajs/react";
 import Table from "@/Components/TableComponent/Table";
+import LinkButton from "@/Components/LinkButton";
+import TableFooter from "../../Components/TableComponent/TableFooter";
 
 const Index = () => {
     const { beans } = usePage().props;
@@ -18,6 +20,8 @@ const Index = () => {
         { label: "Action", className: "text-center" },
     ];
 
+    // console.log(beans);
+
     return (
         <div className="max-w-7xl mx-auto space-y-6">
             {/* Header Section */}
@@ -30,10 +34,10 @@ const Index = () => {
                         Kelola semua produk kopi Anda
                     </p>
                 </div>
-                <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-900 hover:bg-amber-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm">
-                    <i className="fas fa-plus text-xs"></i>
-                    Tambah Produk
-                </button>
+                <LinkButton href="/beans/create" icon="fas fa-plus" >
+                    Add Product
+                </LinkButton>
+
             </div>
 
             {/* Filter & Search Bar */}
@@ -141,13 +145,10 @@ const Index = () => {
                             className="hover:bg-stone-50 transition-colors"
                         >
                             <td className="px-5 py-4">
-                                <span className="text-stone-700">1</span>
+                                <span className="text-stone-700">{index + 1 + (beans.current_page - 1) * beans.per_page}</span>
                             </td>
                             <td className="px-5 py-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center shrink-0">
-                                        <i className="fas fa-coffee text-amber-900"></i>
-                                    </div>
                                     <div>
                                         <p className="font-medium text-stone-800">
                                             {item.name}
@@ -212,38 +213,7 @@ const Index = () => {
                 </Table>
 
                 {/* Table Footer / Pagination */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-5 py-4 border-t border-stone-200 gap-4">
-                    <p className="text-sm text-stone-500">
-                        Menampilkan 1-4 dari 24 data
-                    </p>
-
-                    <div className="flex items-center gap-1">
-                        <button
-                            className="px-3 py-2 border border-stone-300 rounded-lg text-stone-400 text-sm hover:bg-stone-50 transition-colors disabled:opacity-50"
-                            disabled
-                        >
-                            <i className="fas fa-chevron-left text-xs"></i>
-                        </button>
-
-                        <button className="px-3.5 py-2 bg-amber-900 text-white rounded-lg text-sm font-medium">
-                            1
-                        </button>
-                        <button className="px-3.5 py-2 border border-stone-300 rounded-lg text-stone-600 hover:bg-stone-50 text-sm transition-colors">
-                            2
-                        </button>
-                        <button className="px-3.5 py-2 border border-stone-300 rounded-lg text-stone-600 hover:bg-stone-50 text-sm transition-colors">
-                            3
-                        </button>
-                        <span className="px-2 text-stone-400">...</span>
-                        <button className="px-3.5 py-2 border border-stone-300 rounded-lg text-stone-600 hover:bg-stone-50 text-sm transition-colors">
-                            6
-                        </button>
-
-                        <button className="px-3 py-2 border border-stone-300 rounded-lg text-stone-600 hover:bg-stone-50 text-sm transition-colors">
-                            <i className="fas fa-chevron-right text-xs"></i>
-                        </button>
-                    </div>
-                </div>
+                <TableFooter paginate={beans} />
             </div>
         </div>
     );

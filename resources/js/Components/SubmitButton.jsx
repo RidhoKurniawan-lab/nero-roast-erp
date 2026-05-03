@@ -10,7 +10,7 @@ export default function SubmitButton({
     return (
         <button
             type="submit"
-            className={`w-full py-2.5 bg-amber-900 hover:bg-amber-800 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-amber-900/20 flex items-center justify-center gap-2 text-sm ${loading ? 'cursor-not-allowed opacity-70' : '', className}`}
+            className={`w-full py-2.5 bg-amber-900 hover:bg-amber-800 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-amber-900/20 flex items-center justify-center gap-2 text-sm cursor-pointer ${loading ? 'cursor-not-allowed opacity-70' : '', className}`}
         >
             {icon && !loading && (
                 <i className={`fas fa-arrow-right text-xs ${icon}`}></i>
