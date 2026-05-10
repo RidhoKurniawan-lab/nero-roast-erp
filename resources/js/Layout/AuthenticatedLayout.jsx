@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import Sidebar from "@/Components/Authenticated/Sidebar";
-import Topbar from "../Components/Authenticated/Topbar";
+import Topbar from "@/Components/Authenticated/Topbar";
+import useFlashMessages from "@/Hook/useFlashMessage";
 
 export default function AuthenticatedLayout({ children }) {
+
+    useFlashMessages();
+
     const [isOpen, setIsOpen] = useState(true);
 
     const toggleSidebar = () => setIsOpen(!isOpen);

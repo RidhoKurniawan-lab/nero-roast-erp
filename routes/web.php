@@ -14,4 +14,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('Beans', BeanController::class);
+
+    Route::post('/logout', [AuthController::class,'destroy'])->name('logout');
 });

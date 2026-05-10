@@ -3,369 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Data - Kedai Kopi</title>
+    <title>Tambah Produk - Kedai Kopi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-stone-50 p-4 lg:p-6">
+<body class="bg-stone-50 min-h-screen">
 
-    <!-- Container -->
-    <div class="max-w-7xl mx-auto space-y-6">
+    <!-- Main Container -->
+    <div class="max-w-3xl mx-auto px-4 py-6 lg:py-10">
 
-        <!-- Header Section -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-stone-500 mb-6">
+            <a href="#" class="hover:text-amber-900 transition-colors">Dashboard</a>
+            <i class="fas fa-chevron-right text-xs"></i>
+            <a href="#" class="hover:text-amber-900 transition-colors">Produk</a>
+            <i class="fas fa-chevron-right text-xs"></i>
+            <span class="text-stone-800 font-medium">Tambah Produk</span>
+        </nav>
+
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
             <div>
-                <h2 class="text-xl font-bold text-stone-800">Data Produk Kopi</h2>
-                <p class="text-sm text-stone-500 mt-1">Kelola semua produk kopi Anda</p>
+                <h1 class="text-2xl font-bold text-stone-800">Tambah Produk Kopi</h1>
+                <p class="text-sm text-stone-500 mt-1">Lengkapi detail produk kopi baru Anda</p>
             </div>
-            <button class="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-900 hover:bg-amber-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm">
-                <i class="fas fa-plus text-xs"></i>
-                Tambah Produk
-            </button>
+            <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 border border-stone-300 text-stone-700 hover:bg-stone-100 text-sm font-medium rounded-lg transition-colors">
+                <i class="fas fa-arrow-left text-xs"></i>
+                Kembali
+            </a>
         </div>
 
-        <!-- Filter & Search Bar -->
-        <div class="bg-white rounded-xl border border-stone-200 shadow-sm p-4">
-            <div class="flex flex-col sm:flex-row gap-3">
+        <!-- Form Card -->
+        <div class="bg-white rounded-xl border border-stone-200 shadow-sm">
 
-                <!-- Search -->
-                <div class="relative flex-1">
-                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i>
-                    <input
-                        type="text"
-                        placeholder="Cari produk..."
-                        class="w-full pl-10 pr-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10"
-                    >
-                </div>
-
-                <!-- Filter Kategori -->
-                <select class="px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 bg-white">
-                    <option>Semua Kategori</option>
-                    <option>Kopi Hitam</option>
-                    <option>Kopi Susu</option>
-                    <option>Manual Brew</option>
-                    <option>Non Kopi</option>
-                </select>
-
-                <!-- Filter Status -->
-                <select class="px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 bg-white">
-                    <option>Semua Status</option>
-                    <option>Tersedia</option>
-                    <option>Habis</option>
-                    <option>Draft</option>
-                </select>
-
-                <!-- Filter Button -->
-                <button class="px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-600 hover:bg-stone-50 transition-colors flex items-center gap-2">
-                    <i class="fas fa-filter text-xs"></i>
-                    Filter
-                </button>
-            </div>
-
-            <!-- Active Filters -->
-            <div class="flex flex-wrap items-center gap-2 mt-3">
-                <span class="text-xs text-stone-500">Filter aktif:</span>
-                <span class="inline-flex items-center gap-1 px-3 py-1 bg-amber-50 text-amber-900 text-xs rounded-full">
-                    Kopi Susu
-                    <button class="hover:text-red-500"><i class="fas fa-times"></i></button>
-                </span>
-                <span class="inline-flex items-center gap-1 px-3 py-1 bg-amber-50 text-amber-900 text-xs rounded-full">
-                    Tersedia
-                    <button class="hover:text-red-500"><i class="fas fa-times"></i></button>
-                </span>
-                <button class="text-xs text-red-500 hover:text-red-700 ml-2">Hapus semua</button>
-            </div>
-        </div>
-
-        <!-- Table Card -->
-        <div class="bg-white rounded-xl border border-stone-200 shadow-sm overflow-hidden">
-
-            <!-- Table Toolbar -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between px-5 py-4 border-b border-stone-200 gap-3">
-                <div class="flex items-center gap-2 text-sm text-stone-600">
-                    <span>Menampilkan</span>
-                    <select class="border border-stone-300 rounded px-2 py-1 text-sm bg-white">
-                        <option>10</option>
-                        <option>25</option>
-                        <option>50</option>
-                    </select>
-                    <span>dari 24 data</span>
-                </div>
-
-                <div class="flex items-center gap-2">
-                    <button class="p-2 text-stone-500 hover:text-amber-900 hover:bg-stone-100 rounded-lg transition-colors" title="Refresh">
-                        <i class="fas fa-sync-alt text-sm"></i>
-                    </button>
-                    <button class="p-2 text-stone-500 hover:text-amber-900 hover:bg-stone-100 rounded-lg transition-colors" title="Download">
-                        <i class="fas fa-download text-sm"></i>
-                    </button>
-                    <button class="p-2 text-stone-500 hover:text-amber-900 hover:bg-stone-100 rounded-lg transition-colors" title="Print">
-                        <i class="fas fa-print text-sm"></i>
-                    </button>
+            <!-- Card Header -->
+            <div class="px-6 py-5 border-b border-stone-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-coffee text-amber-900"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-semibold text-stone-800">Informasi Produk</h2>
+                        <p class="text-xs text-stone-500">Field bertanda <span class="text-red-500">*</span> wajib diisi</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Table -->
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead>
-                        <tr class="bg-stone-50 border-b border-stone-200">
-                            <th class="w-10 px-5 py-3">
-                                <input type="checkbox" class="w-4 h-4 rounded border-stone-300 text-amber-700 focus:ring-amber-700">
-                            </th>
-                            <th class="text-left px-5 py-3 text-xs font-semibold text-stone-600 uppercase tracking-wider">Produk</th>
-                            <th class="text-left px-5 py-3 text-xs font-semibold text-stone-600 uppercase tracking-wider">Kategori</th>
-                            <th class="text-left px-5 py-3 text-xs font-semibold text-stone-600 uppercase tracking-wider">Harga</th>
-                            <th class="text-left px-5 py-3 text-xs font-semibold text-stone-600 uppercase tracking-wider">Stok</th>
-                            <th class="text-left px-5 py-3 text-xs font-semibold text-stone-600 uppercase tracking-wider">Status</th>
-                            <th class="text-left px-5 py-3 text-xs font-semibold text-stone-600 uppercase tracking-wider">Terjual</th>
-                            <th class="text-center px-5 py-3 text-xs font-semibold text-stone-600 uppercase tracking-wider">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-stone-100">
+            <!-- Form Body -->
+            <form class="p-6">
 
-                        <!-- Row 1 -->
-                        <tr class="hover:bg-stone-50 transition-colors">
-                            <td class="px-5 py-4">
-                                <input type="checkbox" class="w-4 h-4 rounded border-stone-300 text-amber-700 focus:ring-amber-700">
-                            </td>
-                            <td class="px-5 py-4">
+                <!-- Section: Informasi Dasar -->
+                <div class="mb-8">
+                    <h3 class="text-sm font-semibold text-amber-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fas fa-info-circle text-xs"></i>
+                        Informasi Dasar
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        <!-- Name -->
+                        <div class="md:col-span-2">
+                            <label for="name" class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Nama Produk <span class="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="Contoh: Kopi Gayo Premium"
+                                class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
+                                required
+                            >
+                            <p class="text-xs text-stone-400 mt-1">Nama produk maksimal 100 karakter</p>
+                        </div>
+
+                        <!-- Species (Dropdown) -->
+                        <div>
+                            <label for="species" class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Spesies <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <select
+                                    id="species"
+                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all appearance-none bg-white"
+                                    required
+                                >
+                                    <option value="" disabled selected>Pilih spesies kopi</option>
+                                    <option value="arabica">Arabica</option>
+                                    <option value="robusta">Robusta</option>
+                                    <option value="liberica">Liberica</option>
+                                    <option value="excelsa">Excelsa</option>
+                                </select>
+                                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <!-- Variety -->
+                        <div>
+                            <label for="variety" class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Varietas
+                            </label>
+                            <input
+                                type="text"
+                                id="variety"
+                                placeholder="Contoh: Typica, Bourbon, Catimor"
+                                class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Asal Daerah (Origin) -->
+                <div class="mb-8">
+                    <h3 class="text-sm font-semibold text-amber-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-xs"></i>
+                        Asal Daerah (Origin)
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        <!-- Negara -->
+                        <div>
+                            <label for="origin_country" class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Negara <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <select
+                                    id="origin_country"
+                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all appearance-none bg-white"
+                                    required
+                                >
+                                    <option value="" disabled selected>Pilih negara</option>
+                                    <option value="indonesia">Indonesia</option>
+                                    <option value="brazil">Brazil</option>
+                                    <option value="colombia">Colombia</option>
+                                    <option value="ethiopia">Ethiopia</option>
+                                    <option value="kenya">Kenya</option>
+                                    <option value="guatemala">Guatemala</option>
+                                    <option value="costa-rica">Costa Rica</option>
+                                    <option value="vietnam">Vietnam</option>
+                                    <option value="honduras">Honduras</option>
+                                    <option value="panama">Panama</option>
+                                </select>
+                                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <!-- Provinsi / Negara Bagian -->
+                        <div>
+                            <label for="origin_region" class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Provinsi / Negara Bagian <span class="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="origin_region"
+                                placeholder="Contoh: Aceh, Jawa Barat, Sidamo"
+                                class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
+                                required
+                            >
+                            <p class="text-xs text-stone-400 mt-1">Provinsi atau region penghasil kopi</p>
+                        </div>
+
+                        <!-- Gunung / Desa / Kebun -->
+                        <div class="md:col-span-2">
+                            <label for="origin_farm" class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Gunung / Desa / Kebun <span class="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="origin_farm"
+                                placeholder="Contoh: Gunung Puntang, Desa Cikole, Kebun XYZ Estate"
+                                class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
+                                required
+                            >
+                            <p class="text-xs text-stone-400 mt-1">Nama gunung, desa, atau kebun spesifik penghasil kopi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Detail Produksi -->
+                <div class="mb-8">
+                    <h3 class="text-sm font-semibold text-amber-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fas fa-cogs text-xs"></i>
+                        Detail Produksi
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        <!-- Processing Method (Dropdown) -->
+                        <div>
+                            <label for="processing_method" class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Metode Proses <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <select
+                                    id="processing_method"
+                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all appearance-none bg-white"
+                                    required
+                                >
+                                    <option value="" disabled selected>Pilih metode proses</option>
+                                    <option value="natural">Natural (Dry Process)</option>
+                                    <option value="washed">Washed (Wet Process)</option>
+                                    <option value="honey">Honey Process</option>
+                                    <option value="semi-washed">Semi Washed</option>
+                                    <option value="anaerobic">Anaerobic Fermentation</option>
+                                    <option value="wine">Wine Process</option>
+                                </select>
+                                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <!-- Grade -->
+                        <div>
+                            <label for="grade" class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Grade <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <select
+                                    id="grade"
+                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all appearance-none bg-white"
+                                    required
+                                >
+                                    <option value="" disabled selected>Pilih grade</option>
+                                    <option value="specialty">Specialty (85+)</option>
+                                    <option value="premium">Premium (80-84)</option>
+                                    <option value="grade-1">Grade 1</option>
+                                    <option value="grade-2">Grade 2</option>
+                                    <option value="grade-3">Grade 3</option>
+                                    <option value="commercial">Commercial</option>
+                                </select>
+                                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <!-- Crop Year -->
+                        <div>
+                            <label for="crop_year" class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Tahun Panen <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <select
+                                    id="crop_year"
+                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all appearance-none bg-white"
+                                    required
+                                >
+                                    <option value="" disabled selected>Pilih tahun panen</option>
+                                    <option value="2024">2024 / 2025 (Current)</option>
+                                    <option value="2023">2023 / 2024</option>
+                                    <option value="2022">2022 / 2023</option>
+                                    <option value="2021">2021 / 2022</option>
+                                </select>
+                                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <!-- Altitude Range -->
+                        <div>
+                            <label class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Ketinggian (mdpl)
+                            </label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="relative">
+                                    <input
+                                        type="number"
+                                        id="altitude_min"
+                                        placeholder="Min"
+                                        class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
+                                    >
+                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400">mdpl</span>
+                                </div>
+                                <div class="relative">
+                                    <input
+                                        type="number"
+                                        id="altitude_max"
+                                        placeholder="Max"
+                                        class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
+                                    >
+                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400">mdpl</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-stone-400 mt-1">Contoh: 1200 - 1600 mdpl</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Stok & Harga -->
+                <div class="mb-8">
+                    <h3 class="text-sm font-semibold text-amber-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fas fa-boxes text-xs"></i>
+                        Stok & Harga
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        <!-- Stock KG -->
+                        <div>
+                            <label for="stock_kg" class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Stok (Kg) <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <input
+                                    type="number"
+                                    id="stock_kg"
+                                    placeholder="0"
+                                    min="0"
+                                    step="0.01"
+                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
+                                    required
+                                >
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400 font-medium">Kg</span>
+                            </div>
+                        </div>
+
+                        <!-- Price per KG -->
+                        <div>
+                            <label for="price_per_kg" class="block text-sm font-medium text-stone-700 mb-1.5">
+                                Harga per Kg <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-stone-500">Rp</span>
+                                <input
+                                    type="number"
+                                    id="price_per_kg"
+                                    placeholder="0"
+                                    min="0"
+                                    class="w-full pl-10 pr-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Total Harga (Auto Calculate) -->
+                        <div class="md:col-span-2">
+                            <div class="p-4 bg-stone-50 border border-stone-200 rounded-lg flex items-center justify-between">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-coffee text-amber-900"></i>
+                                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-calculator text-amber-900 text-sm"></i>
                                     </div>
                                     <div>
-                                        <p class="font-medium text-stone-800">Kopi Gayo Aceh</p>
-                                        <p class="text-xs text-stone-500">Single Origin</p>
+                                        <p class="text-sm font-medium text-stone-700">Estimasi Total Nilai Stok</p>
+                                        <p class="text-xs text-stone-500">Harga × Jumlah Stok</p>
                                     </div>
                                 </div>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-stone-700">Kopi Hitam</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="font-medium text-stone-800">Rp 35.000</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-stone-700">120</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 text-green-700 text-xs rounded-full font-medium">
-                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                                    Tersedia
-                                </span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-stone-700">234</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <div class="flex items-center justify-center gap-1">
-                                    <button class="p-2 text-stone-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors" title="Edit">
-                                        <i class="fas fa-edit text-sm"></i>
-                                    </button>
-                                    <button class="p-2 text-stone-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Detail">
-                                        <i class="fas fa-eye text-sm"></i>
-                                    </button>
-                                    <button class="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus">
-                                        <i class="fas fa-trash-alt text-sm"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                                <p class="text-lg font-bold text-amber-900">Rp 0</p>
+                            </div>
+                        </div>
 
-                        <!-- Row 2 -->
-                        <tr class="hover:bg-stone-50 transition-colors">
-                            <td class="px-5 py-4">
-                                <input type="checkbox" class="w-4 h-4 rounded border-stone-300 text-amber-700 focus:ring-amber-700">
-                            </td>
-                            <td class="px-5 py-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-mug-hot text-amber-900"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium text-stone-800">Cappuccino Classic</p>
-                                        <p class="text-xs text-stone-500">Hot Beverage</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-stone-700">Kopi Susu</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="font-medium text-stone-800">Rp 28.000</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-stone-700">85</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 text-green-700 text-xs rounded-full font-medium">
-                                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                                    Tersedia
-                                </span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-stone-700">567</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <div class="flex items-center justify-center gap-1">
-                                    <button class="p-2 text-stone-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors" title="Edit">
-                                        <i class="fas fa-edit text-sm"></i>
-                                    </button>
-                                    <button class="p-2 text-stone-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Detail">
-                                        <i class="fas fa-eye text-sm"></i>
-                                    </button>
-                                    <button class="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus">
-                                        <i class="fas fa-trash-alt text-sm"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                    </div>
+                </div>
 
-                        <!-- Row 3 -->
-                        <tr class="hover:bg-stone-50 transition-colors">
-                            <td class="px-5 py-4">
-                                <input type="checkbox" class="w-4 h-4 rounded border-stone-300 text-amber-700 focus:ring-amber-700">
-                            </td>
-                            <td class="px-5 py-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-coffee text-amber-900"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium text-stone-800">Espresso Shot</p>
-                                        <p class="text-xs text-stone-500">Single Shot</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-stone-700">Kopi Hitam</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="font-medium text-stone-800">Rp 22.000</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-red-600 font-medium">0</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-red-50 text-red-700 text-xs rounded-full font-medium">
-                                    <span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-                                    Habis
-                                </span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-stone-700">123</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <div class="flex items-center justify-center gap-1">
-                                    <button class="p-2 text-stone-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors" title="Edit">
-                                        <i class="fas fa-edit text-sm"></i>
-                                    </button>
-                                    <button class="p-2 text-stone-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Detail">
-                                        <i class="fas fa-eye text-sm"></i>
-                                    </button>
-                                    <button class="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus">
-                                        <i class="fas fa-trash-alt text-sm"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                <!-- Info Box -->
+                <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg flex gap-3">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-info-circle text-amber-700 mt-0.5"></i>
+                    </div>
+                    <div class="text-sm text-amber-900">
+                        <p class="font-medium mb-1">Informasi Penting</p>
+                        <ul class="space-y-1 text-amber-800 list-disc list-inside text-xs">
+                            <li>Pastikan data produk sesuai dengan spesifikasi sebenarnya</li>
+                            <li>Origin yang detail membantu traceability kopi</li>
+                            <li>Harga yang dimasukkan adalah harga per kilogram</li>
+                            <li>Produk akan langsung tersimpan sebagai <strong>Draft</strong> dan bisa dipublikasikan nanti</li>
+                        </ul>
+                    </div>
+                </div>
 
-                        <!-- Row 4 - Draft -->
-                        <tr class="hover:bg-stone-50 transition-colors">
-                            <td class="px-5 py-4">
-                                <input type="checkbox" class="w-4 h-4 rounded border-stone-300 text-amber-700 focus:ring-amber-700">
-                            </td>
-                            <td class="px-5 py-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-mug-hot text-stone-400"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium text-stone-800">Matcha Latte</p>
-                                        <p class="text-xs text-stone-500">Non Kopi</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-stone-700">Non Kopi</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="font-medium text-stone-800">Rp 30.000</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-stone-700">50</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-stone-100 text-stone-600 text-xs rounded-full font-medium">
-                                    <span class="w-1.5 h-1.5 bg-stone-400 rounded-full"></span>
-                                    Draft
-                                </span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <span class="text-stone-400">-</span>
-                            </td>
-                            <td class="px-5 py-4">
-                                <div class="flex items-center justify-center gap-1">
-                                    <button class="p-2 text-stone-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors" title="Edit">
-                                        <i class="fas fa-edit text-sm"></i>
-                                    </button>
-                                    <button class="p-2 text-stone-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Detail">
-                                        <i class="fas fa-eye text-sm"></i>
-                                    </button>
-                                    <button class="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus">
-                                        <i class="fas fa-trash-alt text-sm"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Table Footer / Pagination -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between px-5 py-4 border-t border-stone-200 gap-4">
-                <p class="text-sm text-stone-500">Menampilkan 1-4 dari 24 data</p>
-
-                <div class="flex items-center gap-1">
-                    <button class="px-3 py-2 border border-stone-300 rounded-lg text-stone-400 text-sm hover:bg-stone-50 transition-colors disabled:opacity-50" disabled>
-                        <i class="fas fa-chevron-left text-xs"></i>
+                <!-- Action Buttons -->
+                <div class="mt-8 flex flex-col sm:flex-row items-center gap-3 pt-6 border-t border-stone-200">
+                    <button type="submit" class="w-full sm:w-auto px-6 py-2.5 bg-amber-900 hover:bg-amber-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-save text-xs"></i>
+                        Simpan sebagai Draft
                     </button>
-
-                    <button class="px-3.5 py-2 bg-amber-900 text-white rounded-lg text-sm font-medium">1</button>
-                    <button class="px-3.5 py-2 border border-stone-300 rounded-lg text-stone-600 hover:bg-stone-50 text-sm transition-colors">2</button>
-                    <button class="px-3.5 py-2 border border-stone-300 rounded-lg text-stone-600 hover:bg-stone-50 text-sm transition-colors">3</button>
-                    <span class="px-2 text-stone-400">...</span>
-                    <button class="px-3.5 py-2 border border-stone-300 rounded-lg text-stone-600 hover:bg-stone-50 text-sm transition-colors">6</button>
-
-                    <button class="px-3 py-2 border border-stone-300 rounded-lg text-stone-600 hover:bg-stone-50 text-sm transition-colors">
-                        <i class="fas fa-chevron-right text-xs"></i>
+                    <button type="button" class="w-full sm:w-auto px-6 py-2.5 border border-amber-900 text-amber-900 hover:bg-amber-50 text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2">
+                        <i class="fas fa-paper-plane text-xs"></i>
+                        Simpan & Publikasikan
+                    </button>
+                    <button type="reset" class="w-full sm:w-auto px-6 py-2.5 border border-stone-300 text-stone-600 hover:bg-stone-50 text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2 sm:ml-auto">
+                        <i class="fas fa-undo text-xs"></i>
+                        Reset Form
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
-
-        <!-- Bulk Actions (Muncul saat checkbox dipilih) -->
-        <div class="bg-white rounded-xl border border-stone-200 shadow-sm p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <p class="text-sm text-stone-600">
-                <span class="font-medium text-amber-900">3</span> data dipilih
-            </p>
-            <div class="flex flex-wrap gap-2">
-                <button class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition-colors flex items-center gap-2">
-                    <i class="fas fa-check text-xs"></i>
-                    Aktifkan
-                </button>
-                <button class="px-4 py-2 bg-stone-600 hover:bg-stone-700 text-white text-sm rounded-lg transition-colors flex items-center gap-2">
-                    <i class="fas fa-archive text-xs"></i>
-                    Arsipkan
-                </button>
-                <button class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-lg transition-colors flex items-center gap-2">
-                    <i class="fas fa-trash text-xs"></i>
-                    Hapus
-                </button>
-            </div>
-        </div>
-
     </div>
+
+    <!-- Floating Save Button Mobile -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-stone-200 p-4 sm:hidden z-10">
+        <button type="submit" class="w-full py-3 bg-amber-900 hover:bg-amber-800 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2">
+            <i class="fas fa-save text-sm"></i>
+            Simpan Produk
+        </button>
+    </div>
+
 </body>
 </html>

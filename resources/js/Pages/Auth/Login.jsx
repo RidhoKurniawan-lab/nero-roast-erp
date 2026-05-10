@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 
 const Login = () => {
-
     const { data, setData, post, processing, errors } = useForm({
         email: "",
         password: "",
@@ -13,59 +12,68 @@ const Login = () => {
 
     const [isShow, setIsShow] = useState(true);
 
-    const togglePassword = () => { setIsShow(!isShow) };
+    const togglePassword = () => {
+        setIsShow(!isShow);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         post("/login");
-    }
+    };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
-            {/*  Email */}
-            <TextInput
-                label="Email"
-                name="Email"
-                value={data.email}
-                onChange={(e) => setData("email", e.target.value)}
-                icon="fas fa-envelope"
-                type="email"
-                id="email"
-                placeholder="Enter Your Email"
-            />
+        <>
+            {(errors.auth || errors.email || errors.password) && (
+                <div className="p-2 mb-3 mt-2 border border-red-200 bg-red-50 rounded-xl">
+                    <p className="text-xs text-center text-red-700">
+                        {errors.auth || errors.email || errors.password}
+                    </p>
+                </div>
+            )}
 
-            {/*  Password */}
-            <TextInput
-                label="Password"
-                name="Password"
-                value={data.password}
-                onChange={(e) => setData("password", e.target.value)}
-                icon="fas fa-lock"
-                isPassword={true}
-                type={isShow ? "password" : "text"}
-                id="password"
-                isShow={isShow}
-                togglePassword={togglePassword}
-                placeholder="Enter Your Password"
-            />
+            <form onSubmit={handleSubmit} className="space-y-4">
+                {/*  Email */}
+                <TextInput
+                    label="Email"
+                    name="Email"
+                    value={data.email}
+                    onChange={(e) => setData("email", e.target.value)}
+                    icon="fas fa-envelope"
+                    type="email"
+                    id="email"
+                    placeholder="Enter Your Email"
+                />
 
-            {/*  Login Button */}
-            <SubmitButton
-                icon="fas fa-arrow-right"
-                loading={processing}
-            >
-                Login
-            </SubmitButton>
+                {/*  Password */}
+                <TextInput
+                    label="Password"
+                    name="Password"
+                    value={data.password}
+                    onChange={(e) => setData("password", e.target.value)}
+                    icon="fas fa-lock"
+                    isPassword={true}
+                    type={isShow ? "password" : "text"}
+                    id="password"
+                    isShow={isShow}
+                    togglePassword={togglePassword}
+                    placeholder="Enter Your Password"
+                />
 
-            {/*  Remember & Forgot */}
-            {/* <div className="flex items-center justify-between text-sm">
+                {/*  Login Button */}
+                <SubmitButton icon="fas fa-arrow-right" loading={processing}>
+                    Login
+                </SubmitButton>
+
+                {/*  Remember & Forgot */}
+                {/* <div className="flex items-center justify-between text-sm">
                     <label className="flex items-center gap-1.5 text-stone-600 cursor-pointer">
                         <input type="checkbox" className="w-3.5 h-3.5 rounded border-stone-300 text-amber-700 focus:ring-amber-700"/>
                         <span className="text-xs">Ingat saya</span>
                     </label>
                     <a href="#" className="text-amber-800 hover:text-amber-600 text-xs font-medium transition-colors">Lupa password?</a>
                 </div> */}
-        </form>
+            </form>
+        </>
     );
 };
 

@@ -6,9 +6,13 @@ export default function TextInput({
     label,
     togglePassword,
     className,
+    errors,
     isShow,
+    name,
+    RightText,
     ...props
-}) {
+})
+{
     return (
         <div>
             {label && (
@@ -27,7 +31,7 @@ export default function TextInput({
                 )}
                 <input
                     {...props}
-                    className={`w-full pl-10 pr-4 py-2.5 border border-stone-300 rounded-lg text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all text-sm ${className}`}
+                    className={`w-full ${icon ? "pl-10 pr-4" : "px-4"}  py-2.5 border border-stone-300 rounded-lg text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all text-sm ${className}`}
                 />
                 {isPassword && (
                     <button
@@ -35,10 +39,22 @@ export default function TextInput({
                         onClick={togglePassword}
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
                     >
-                        <i className={`${isShow ? 'fas fa-eye-slash' : 'fas fa-eye'} text-sm cursor-pointer`}></i>
+                        <i
+                            className={`${isShow ? "fas fa-eye-slash" : "fas fa-eye"} text-sm cursor-pointer`}
+                        ></i>
                     </button>
                 )}
+                {RightText && (
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400">
+                        {RightText}
+                    </span>
+                )}
             </div>
+            {errors?.[name] &&
+                <p className="mt-1 text-sm text-red-500">
+                    {errors[name]}
+                </p>
+            }
         </div>
     );
 }

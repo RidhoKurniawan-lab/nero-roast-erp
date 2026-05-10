@@ -1,6 +1,10 @@
 import React from "react";
+import useFlashMessages from "@/Hook/useFlashMessage";
 
 export default function GuestLayout({ children }) {
+
+    useFlashMessages();
+
     return (
         <section className="min-h-screen bg-linear-to-br from-amber-900 via-stone-800 to-stone-900 flex items-center justify-center p-4 relative overflow-hidden">
             {/*Background Decorative Elements */}

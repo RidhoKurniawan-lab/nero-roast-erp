@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBeanRequest;
 use App\Models\Bean;
 use Illuminate\Http\Request;
 use inertia\inertia;
@@ -23,15 +24,22 @@ class BeanController extends Controller
      */
     public function create()
     {
-        //
+
+        $Methods = Bean::distinct()->pluck('processing_method');
+
+        return inertia::render('Beans/Add', ['methods' => $Methods]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBeanRequest $request)
     {
-        //
+        $credentials = $request->validated();
+
+        Bean::create($credentials);
+
+        return redirect()->route('Beans.index')->with('success', 'Coffee beans added successfully!');
     }
 
     /**

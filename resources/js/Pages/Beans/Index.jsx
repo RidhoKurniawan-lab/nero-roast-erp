@@ -5,6 +5,7 @@ import { usePage } from "@inertiajs/react";
 import Table from "@/Components/TableComponent/Table";
 import LinkButton from "@/Components/LinkButton";
 import TableFooter from "../../Components/TableComponent/TableFooter";
+import { route } from "ziggy-js";
 
 const Index = () => {
     const { beans } = usePage().props;
@@ -34,7 +35,7 @@ const Index = () => {
                         Kelola semua produk kopi Anda
                     </p>
                 </div>
-                <LinkButton href="/beans/create" icon="fas fa-plus" >
+                <LinkButton href={route('Beans.create')} icon="fas fa-plus" >
                     Add Product
                 </LinkButton>
 
@@ -154,7 +155,7 @@ const Index = () => {
                                             {item.name}
                                         </p>
                                         <p className="text-xs text-stone-500">
-                                            {item.origin}
+                                            {item.origin_region}
                                         </p>
                                     </div>
                                 </div>

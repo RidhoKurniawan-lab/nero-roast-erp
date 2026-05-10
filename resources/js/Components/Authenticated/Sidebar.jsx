@@ -1,12 +1,29 @@
-import { Link, router } from "@inertiajs/react";
 import React from "react";
+import NavLink from "./NavLink";
+import { route } from "ziggy-js";
+import { showConfirm } from "@/Utils/swal";
+import { router } from "@inertiajs/react";
 
-export default function Sidebar({isOpen, toggleSidebar}) {
+export default function Sidebar({ isOpen, toggleSidebar }) {
+    const handleLogout = (e) => {
+        e.preventDefault();
+
+        showConfirm(
+            "Logout?",
+            "Are you sure you want to leave?",
+            "Leave",
+        ).then((result) => {
+            if (result.isConfirmed) {
+                router.post(route("logout"));
+            }
+        });
+    };
+
     return (
         <>
             {/* Sidebar Overlay Mobile */}
             <div
-                className={`fixed inset-0 bg-black/50 z-20 ${isOpen ? 'hidden' : ""} lg:hidden cursor-pointer`}
+                className={`fixed inset-0 bg-black/50 z-20 ${isOpen ? "hidden" : ""} lg:hidden cursor-pointer`}
                 onClick={toggleSidebar}
             ></div>
             <aside
@@ -36,21 +53,21 @@ export default function Sidebar({isOpen, toggleSidebar}) {
                         Main Menu
                     </p>
 
-                    <Link
-                        href="/dashboard"
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-amber-50 text-amber-900 font-medium text-sm"
+                    <NavLink
+                        href={route("dashboard")}
+                        active={route().current("dashboard")}
+                        icon="fas fa-th-large"
                     >
-                        <i className="fas fa-th-large w-5 text-center"></i>
-                        <span>Dashboard</span>
-                    </Link>
+                        Dashboard
+                    </NavLink>
 
-                    <Link
-                        href="/Beans"
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-stone-600 hover:bg-stone-100 font-medium text-sm transition-colors"
+                    <NavLink
+                        href={route("Beans.index")}
+                        active={route().current("Beans.*")}
+                        icon="fas fa-coffee"
                     >
-                        <i className="fas fa-coffee w-5 text-center"></i>
-                        <span>Green Beans</span>
-                    </Link>
+                        Green Beans
+                    </NavLink>
 
                     <a
                         href="#"
@@ -106,7 +123,10 @@ export default function Sidebar({isOpen, toggleSidebar}) {
                             </p>
                             <p className="text-xs text-stone-500">Admin</p>
                         </div>
-                        <button className="text-stone-400 hover:text-stone-600">
+                        <button
+                            onClick={handleLogout}
+                            className="text-stone-400 hover:text-stone-600 cursor-pointer"
+                        >
                             <i className="fas fa-sign-out-alt text-sm"></i>
                         </button>
                     </div>

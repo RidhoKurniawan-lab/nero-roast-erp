@@ -27,7 +27,9 @@ class BeanFactory extends Factory
 
         return [
             'name' => fake()->words(2, true).' '.fake()->randomElement($origins),
-            'origin' => fake()->randomElement(['Aceh', 'Sumatera Utara', 'Jawa Barat', 'Sulawesi', 'Bali']),
+            'origin_country' => 'Indonesia',
+            'sub_origin' => fake()->randomElement(['Mount Puntang', 'Cikole Village', 'XYZ Estate Garden']),
+            'origin_region' => fake()->randomElement(['Aceh', 'Sumatera Utara', 'Jawa Barat', 'Sulawesi', 'Bali']),
             'species' => fake()->randomElement($species),
             'variety' => fake()->randomElement(['Sigararutang', 'S-795', 'Typica', 'Kartika', 'Andung Sari']),
             'processing_method' => fake()->randomElement($processes),
