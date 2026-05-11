@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Produk - Kedai Kopi</title>
+    <title>Detail Produk - Kedai Kopi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -14,43 +14,51 @@
 
         <!-- Breadcrumb -->
         <nav class="flex items-center gap-2 text-sm text-stone-500 mb-6">
-            <a href="#" class="hover:text-amber-900 transition-colors">Dashboard</a>
-            <i class="fas fa-chevron-right text-xs"></i>
             <a href="#" class="hover:text-amber-900 transition-colors">Produk</a>
             <i class="fas fa-chevron-right text-xs"></i>
-            <span class="text-stone-800 font-medium">Tambah Produk</span>
+            <span class="text-stone-800 font-medium">Detail Produk</span>
         </nav>
 
         <!-- Header -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
             <div>
-                <h1 class="text-2xl font-bold text-stone-800">Tambah Produk Kopi</h1>
-                <p class="text-sm text-stone-500 mt-1">Lengkapi detail produk kopi baru Anda</p>
+                <h1 class="text-2xl font-bold text-stone-800">Detail Produk Kopi</h1>
+                <p class="text-sm text-stone-500 mt-1">Informasi lengkap spesifikasi kopi</p>
             </div>
-            <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 border border-stone-300 text-stone-700 hover:bg-stone-100 text-sm font-medium rounded-lg transition-colors">
-                <i class="fas fa-arrow-left text-xs"></i>
-                Kembali
-            </a>
+            <div class="flex items-center gap-2">
+                <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 border border-stone-300 text-stone-700 hover:bg-stone-100 text-sm font-medium rounded-lg transition-colors">
+                    <i class="fas fa-arrow-left text-xs"></i>
+                    Kembali
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-900 hover:bg-amber-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm">
+                    <i class="fas fa-edit text-xs"></i>
+                    Edit
+                </a>
+            </div>
         </div>
 
-        <!-- Form Card -->
+        <!-- Main Card -->
         <div class="bg-white rounded-xl border border-stone-200 shadow-sm">
 
             <!-- Card Header -->
-            <div class="px-6 py-5 border-b border-stone-200">
+            <div class="px-6 py-5 border-b border-stone-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-coffee text-amber-900"></i>
+                    <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-coffee text-amber-900 text-lg"></i>
                     </div>
                     <div>
-                        <h2 class="font-semibold text-stone-800">Informasi Produk</h2>
-                        <p class="text-xs text-stone-500">Field bertanda <span class="text-red-500">*</span> wajib diisi</p>
+                        <h2 class="font-semibold text-stone-800 text-lg" id="displayName">Kopi Gayo Premium</h2>
+                        <p class="text-xs text-stone-500">ID: KPG-2024-001</p>
                     </div>
                 </div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 text-green-700 text-xs font-medium rounded-full">
+                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                    Tersedia
+                </span>
             </div>
 
-            <!-- Form Body -->
-            <form class="p-6">
+            <!-- Content Body -->
+            <div class="p-6">
 
                 <!-- Section: Informasi Dasar -->
                 <div class="mb-8">
@@ -63,51 +71,29 @@
 
                         <!-- Name -->
                         <div class="md:col-span-2">
-                            <label for="name" class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Nama Produk <span class="text-red-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                placeholder="Contoh: Kopi Gayo Premium"
-                                class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
-                                required
-                            >
-                            <p class="text-xs text-stone-400 mt-1">Nama produk maksimal 100 karakter</p>
+                            <label class="block text-xs font-medium text-stone-500 mb-1">Nama Produk</label>
+                            <p class="text-sm font-medium text-stone-800 bg-stone-50 rounded-lg px-4 py-2.5 border border-stone-200">
+                                <i class="fas fa-mug-hot text-amber-700 mr-2"></i>
+                                <span id="displayName2">Kopi Gayo Premium</span>
+                            </p>
                         </div>
 
-                        <!-- Species (Dropdown) -->
+                        <!-- Species -->
                         <div>
-                            <label for="species" class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Spesies <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <select
-                                    id="species"
-                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all appearance-none bg-white"
-                                    required
-                                >
-                                    <option value="" disabled selected>Pilih spesies kopi</option>
-                                    <option value="arabica">Arabica</option>
-                                    <option value="robusta">Robusta</option>
-                                    <option value="liberica">Liberica</option>
-                                    <option value="excelsa">Excelsa</option>
-                                </select>
-                                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs pointer-events-none"></i>
-                            </div>
+                            <label class="block text-xs font-medium text-stone-500 mb-1">Spesies</label>
+                            <p class="text-sm font-medium text-stone-800 bg-stone-50 rounded-lg px-4 py-2.5 border border-stone-200">
+                                <i class="fas fa-seedling text-amber-700 mr-2"></i>
+                                <span id="displaySpecies">Arabica</span>
+                            </p>
                         </div>
 
                         <!-- Variety -->
                         <div>
-                            <label for="variety" class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Varietas
-                            </label>
-                            <input
-                                type="text"
-                                id="variety"
-                                placeholder="Contoh: Typica, Bourbon, Catimor"
-                                class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
-                            >
+                            <label class="block text-xs font-medium text-stone-500 mb-1">Varietas</label>
+                            <p class="text-sm font-medium text-stone-800 bg-stone-50 rounded-lg px-4 py-2.5 border border-stone-200">
+                                <i class="fas fa-leaf text-amber-700 mr-2"></i>
+                                <span id="displayVariety">Typica, Bourbon</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -119,280 +105,222 @@
                         Asal Daerah (Origin)
                     </h3>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-                        <!-- Negara -->
-                        <div>
-                            <label for="origin_country" class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Negara <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <select
-                                    id="origin_country"
-                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all appearance-none bg-white"
-                                    required
-                                >
-                                    <option value="" disabled selected>Pilih negara</option>
-                                    <option value="indonesia">Indonesia</option>
-                                    <option value="brazil">Brazil</option>
-                                    <option value="colombia">Colombia</option>
-                                    <option value="ethiopia">Ethiopia</option>
-                                    <option value="kenya">Kenya</option>
-                                    <option value="guatemala">Guatemala</option>
-                                    <option value="costa-rica">Costa Rica</option>
-                                    <option value="vietnam">Vietnam</option>
-                                    <option value="honduras">Honduras</option>
-                                    <option value="panama">Panama</option>
-                                </select>
-                                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs pointer-events-none"></i>
+                    <!-- Origin Path Visualization -->
+                    <div class="mb-4 p-4 bg-stone-50 border border-stone-200 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-globe-asia text-amber-900"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm text-stone-800">
+                                    <span id="displayCountry">Indonesia</span>
+                                    <i class="fas fa-chevron-right text-xs text-stone-400 mx-2"></i>
+                                    <span id="displayRegion">Aceh</span>
+                                    <span id="displaySubOriginWrapper">
+                                        <i class="fas fa-chevron-right text-xs text-stone-400 mx-2"></i>
+                                        <span id="displaySubOrigin">Gunung Burni Telong</span>
+                                    </span>
+                                </p>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Provinsi / Negara Bagian -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        <!-- Origin Country -->
                         <div>
-                            <label for="origin_region" class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Provinsi / Negara Bagian <span class="text-red-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                id="origin_region"
-                                placeholder="Contoh: Aceh, Jawa Barat, Sidamo"
-                                class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
-                                required
-                            >
-                            <p class="text-xs text-stone-400 mt-1">Provinsi atau region penghasil kopi</p>
+                            <label class="block text-xs font-medium text-stone-500 mb-1">Negara</label>
+                            <p class="text-sm font-medium text-stone-800 bg-stone-50 rounded-lg px-4 py-2.5 border border-stone-200">
+                                <span id="displayCountry2">Indonesia</span>
+                            </p>
                         </div>
 
-                        <!-- Gunung / Desa / Kebun -->
+                        <!-- Origin Region -->
+                        <div>
+                            <label class="block text-xs font-medium text-stone-500 mb-1">Provinsi / Negara Bagian</label>
+                            <p class="text-sm font-medium text-stone-800 bg-stone-50 rounded-lg px-4 py-2.5 border border-stone-200">
+                                <span id="displayRegion2">Aceh (Gayo)</span>
+                            </p>
+                        </div>
+
+                        <!-- Sub Origin -->
                         <div class="md:col-span-2">
-                            <label for="origin_farm" class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Gunung / Desa / Kebun <span class="text-red-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                id="origin_farm"
-                                placeholder="Contoh: Gunung Puntang, Desa Cikole, Kebun XYZ Estate"
-                                class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
-                                required
-                            >
-                            <p class="text-xs text-stone-400 mt-1">Nama gunung, desa, atau kebun spesifik penghasil kopi</p>
+                            <label class="block text-xs font-medium text-stone-500 mb-1">Gunung / Desa / Kebun</label>
+                            <p class="text-sm font-medium text-stone-800 bg-stone-50 rounded-lg px-4 py-2.5 border border-stone-200">
+                                <i class="fas fa-mountain text-amber-700 mr-2"></i>
+                                <span id="displaySubOrigin2">Gunung Burni Telong, Desa Kenawat, Kecamatan Bukit</span>
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Section: Detail Produksi -->
+                <!-- Section: Detail Produksi & Grade -->
                 <div class="mb-8">
                     <h3 class="text-sm font-semibold text-amber-900 uppercase tracking-wider mb-4 flex items-center gap-2">
                         <i class="fas fa-cogs text-xs"></i>
-                        Detail Produksi
+                        Detail Produksi & Grade
                     </h3>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-                        <!-- Processing Method (Dropdown) -->
+                        <!-- Processing Method -->
                         <div>
-                            <label for="processing_method" class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Metode Proses <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <select
-                                    id="processing_method"
-                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all appearance-none bg-white"
-                                    required
-                                >
-                                    <option value="" disabled selected>Pilih metode proses</option>
-                                    <option value="natural">Natural (Dry Process)</option>
-                                    <option value="washed">Washed (Wet Process)</option>
-                                    <option value="honey">Honey Process</option>
-                                    <option value="semi-washed">Semi Washed</option>
-                                    <option value="anaerobic">Anaerobic Fermentation</option>
-                                    <option value="wine">Wine Process</option>
-                                </select>
-                                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs pointer-events-none"></i>
-                            </div>
+                            <label class="block text-xs font-medium text-stone-500 mb-1">Metode Proses</label>
+                            <p class="text-sm font-medium text-stone-800 bg-stone-50 rounded-lg px-4 py-2.5 border border-stone-200">
+                                <i class="fas fa-water text-amber-700 mr-2"></i>
+                                <span id="displayProcessingMethod">Washed (Wet Process)</span>
+                            </p>
                         </div>
 
                         <!-- Grade -->
                         <div>
-                            <label for="grade" class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Grade <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <select
-                                    id="grade"
-                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all appearance-none bg-white"
-                                    required
-                                >
-                                    <option value="" disabled selected>Pilih grade</option>
-                                    <option value="specialty">Specialty (85+)</option>
-                                    <option value="premium">Premium (80-84)</option>
-                                    <option value="grade-1">Grade 1</option>
-                                    <option value="grade-2">Grade 2</option>
-                                    <option value="grade-3">Grade 3</option>
-                                    <option value="commercial">Commercial</option>
-                                </select>
-                                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs pointer-events-none"></i>
-                            </div>
-                        </div>
-
-                        <!-- Crop Year -->
-                        <div>
-                            <label for="crop_year" class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Tahun Panen <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <select
-                                    id="crop_year"
-                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all appearance-none bg-white"
-                                    required
-                                >
-                                    <option value="" disabled selected>Pilih tahun panen</option>
-                                    <option value="2024">2024 / 2025 (Current)</option>
-                                    <option value="2023">2023 / 2024</option>
-                                    <option value="2022">2022 / 2023</option>
-                                    <option value="2021">2021 / 2022</option>
-                                </select>
-                                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs pointer-events-none"></i>
-                            </div>
+                            <label class="block text-xs font-medium text-stone-500 mb-1">Grade</label>
+                            <p class="text-sm font-medium text-stone-800 bg-stone-50 rounded-lg px-4 py-2.5 border border-stone-200">
+                                <span id="displayGrade" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-amber-100 text-amber-900 rounded-full text-xs font-semibold">
+                                    <i class="fas fa-star"></i>
+                                    Specialty (85+)
+                                </span>
+                            </p>
                         </div>
 
                         <!-- Altitude Range -->
                         <div>
-                            <label class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Ketinggian (mdpl)
-                            </label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <div class="relative">
-                                    <input
-                                        type="number"
-                                        id="altitude_min"
-                                        placeholder="Min"
-                                        class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
-                                    >
-                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400">mdpl</span>
-                                </div>
-                                <div class="relative">
-                                    <input
-                                        type="number"
-                                        id="altitude_max"
-                                        placeholder="Max"
-                                        class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
-                                    >
-                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400">mdpl</span>
-                                </div>
-                            </div>
-                            <p class="text-xs text-stone-400 mt-1">Contoh: 1200 - 1600 mdpl</p>
+                            <label class="block text-xs font-medium text-stone-500 mb-1">Ketinggian</label>
+                            <p class="text-sm font-medium text-stone-800 bg-stone-50 rounded-lg px-4 py-2.5 border border-stone-200">
+                                <i class="fas fa-mountain text-amber-700 mr-2"></i>
+                                <span id="displayAltitudeMin">1.200</span> - <span id="displayAltitudeMax">1.600</span> mdpl
+                            </p>
+                        </div>
+
+                        <!-- Crop Year -->
+                        <div>
+                            <label class="block text-xs font-medium text-stone-500 mb-1">Tahun Panen</label>
+                            <p class="text-sm font-medium text-stone-800 bg-stone-50 rounded-lg px-4 py-2.5 border border-stone-200">
+                                <i class="far fa-calendar-check text-amber-700 mr-2"></i>
+                                <span id="displayCropYear">2024</span>
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Section: Stok & Harga -->
+                <!-- Section: Harga -->
                 <div class="mb-8">
                     <h3 class="text-sm font-semibold text-amber-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                        <i class="fas fa-boxes text-xs"></i>
-                        Stok & Harga
+                        <i class="fas fa-tag text-xs"></i>
+                        Harga
                     </h3>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-                        <!-- Stock KG -->
-                        <div>
-                            <label for="stock_kg" class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Stok (Kg) <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <input
-                                    type="number"
-                                    id="stock_kg"
-                                    placeholder="0"
-                                    min="0"
-                                    step="0.01"
-                                    class="w-full px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
-                                    required
-                                >
-                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400 font-medium">Kg</span>
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-amber-800 mb-1">Harga per Kilogram</p>
+                                <p class="text-2xl font-bold text-amber-900">
+                                    Rp <span id="displayPricePerKg">185.000</span>
+                                </p>
+                            </div>
+                            <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-money-bill-wave text-amber-900 text-lg"></i>
                             </div>
                         </div>
-
-                        <!-- Price per KG -->
-                        <div>
-                            <label for="price_per_kg" class="block text-sm font-medium text-stone-700 mb-1.5">
-                                Harga per Kg <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-stone-500">Rp</span>
-                                <input
-                                    type="number"
-                                    id="price_per_kg"
-                                    placeholder="0"
-                                    min="0"
-                                    class="w-full pl-10 pr-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 transition-all"
-                                    required
-                                >
-                            </div>
-                        </div>
-
-                        <!-- Total Harga (Auto Calculate) -->
-                        <div class="md:col-span-2">
-                            <div class="p-4 bg-stone-50 border border-stone-200 rounded-lg flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-calculator text-amber-900 text-sm"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-medium text-stone-700">Estimasi Total Nilai Stok</p>
-                                        <p class="text-xs text-stone-500">Harga × Jumlah Stok</p>
-                                    </div>
-                                </div>
-                                <p class="text-lg font-bold text-amber-900">Rp 0</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Info Box -->
-                <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg flex gap-3">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-info-circle text-amber-700 mt-0.5"></i>
-                    </div>
-                    <div class="text-sm text-amber-900">
-                        <p class="font-medium mb-1">Informasi Penting</p>
-                        <ul class="space-y-1 text-amber-800 list-disc list-inside text-xs">
-                            <li>Pastikan data produk sesuai dengan spesifikasi sebenarnya</li>
-                            <li>Origin yang detail membantu traceability kopi</li>
-                            <li>Harga yang dimasukkan adalah harga per kilogram</li>
-                            <li>Produk akan langsung tersimpan sebagai <strong>Draft</strong> dan bisa dipublikasikan nanti</li>
-                        </ul>
+                        <p class="text-xs text-amber-700 mt-2">Harga dalam Rupiah per Kilogram (IDR/Kg)</p>
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="mt-8 flex flex-col sm:flex-row items-center gap-3 pt-6 border-t border-stone-200">
-                    <button type="submit" class="w-full sm:w-auto px-6 py-2.5 bg-amber-900 hover:bg-amber-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm flex items-center justify-center gap-2">
-                        <i class="fas fa-save text-xs"></i>
-                        Simpan sebagai Draft
+                <div class="flex flex-col sm:flex-row items-center gap-3 pt-6 border-t border-stone-200">
+                    <a href="#" class="w-full sm:w-auto px-6 py-2.5 bg-amber-900 hover:bg-amber-800 text-white text-sm font-medium rounded-lg transition-colors shadow-sm flex items-center justify-center gap-2">
+                        <i class="fas fa-edit text-xs"></i>
+                        Edit Produk
+                    </a>
+                    <button class="w-full sm:w-auto px-6 py-2.5 border border-stone-300 text-stone-700 hover:bg-stone-100 text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2">
+                        <i class="fas fa-copy text-xs"></i>
+                        Duplikat
                     </button>
-                    <button type="button" class="w-full sm:w-auto px-6 py-2.5 border border-amber-900 text-amber-900 hover:bg-amber-50 text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2">
-                        <i class="fas fa-paper-plane text-xs"></i>
-                        Simpan & Publikasikan
-                    </button>
-                    <button type="reset" class="w-full sm:w-auto px-6 py-2.5 border border-stone-300 text-stone-600 hover:bg-stone-50 text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2 sm:ml-auto">
-                        <i class="fas fa-undo text-xs"></i>
-                        Reset Form
+                    <button class="w-full sm:w-auto px-6 py-2.5 border border-red-300 text-red-600 hover:bg-red-50 text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2 sm:ml-auto">
+                        <i class="fas fa-trash-alt text-xs"></i>
+                        Hapus
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
-    <!-- Floating Save Button Mobile -->
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-stone-200 p-4 sm:hidden z-10">
-        <button type="submit" class="w-full py-3 bg-amber-900 hover:bg-amber-800 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2">
-            <i class="fas fa-save text-sm"></i>
-            Simpan Produk
-        </button>
-    </div>
+    <!-- Contoh Script untuk Render Data -->
+    <script>
+        // Contoh initialData (nanti diganti dengan data dari API/backend)
+        const initialData = {
+            name: "Kopi Gayo Premium",
+            origin_country: "Indonesia",
+            origin_region: "Aceh (Gayo)",
+            sub_origin: "Gunung Burni Telong, Desa Kenawat, Kecamatan Bukit",
+            species: "Arabica",
+            variety: "Typica, Bourbon",
+            processing_method: "Washed (Wet Process)",
+            grade: "Specialty (85+)",
+            altitude_min: "1.200",
+            altitude_max: "1.600",
+            crop_year: "2024",
+            price_per_kg: "185.000"
+        };
 
+        // Render data ke halaman
+        function renderProductData(data) {
+            // Name
+            document.getElementById('displayName').textContent = data.name || "";
+            document.getElementById('displayName2').textContent = data.name || "";
+
+            // Species
+            document.getElementById('displaySpecies').textContent = data.species || "-";
+
+            // Variety
+            document.getElementById('displayVariety').textContent = data.variety || "-";
+
+            // Origin Country
+            const defaultCountry = data.origin_country || "Indonesia";
+            document.getElementById('displayCountry').textContent = defaultCountry;
+            document.getElementById('displayCountry2').textContent = defaultCountry;
+
+            // Origin Region
+            const region = data.origin_region || "";
+            document.getElementById('displayRegion').textContent = region || "-";
+            document.getElementById('displayRegion2').textContent = region || "-";
+
+            // Sub Origin
+            const subOrigin = data.sub_origin || "";
+            const subOriginElem = document.getElementById('displaySubOrigin');
+            const subOriginElem2 = document.getElementById('displaySubOrigin2');
+            const subOriginWrapper = document.getElementById('displaySubOriginWrapper');
+
+            if (subOrigin) {
+                subOriginElem.textContent = subOrigin;
+                subOriginElem2.textContent = subOrigin;
+                subOriginWrapper.style.display = 'inline';
+            } else {
+                subOriginElem.textContent = '';
+                subOriginElem2.textContent = '-';
+                subOriginWrapper.style.display = 'none';
+            }
+
+            // Processing Method
+            document.getElementById('displayProcessingMethod').textContent = data.processing_method || "-";
+
+            // Grade
+            document.getElementById('displayGrade').textContent = data.grade || "-";
+
+            // Altitude
+            document.getElementById('displayAltitudeMin').textContent = data.altitude_min || "-";
+            document.getElementById('displayAltitudeMax').textContent = data.altitude_max || "-";
+
+            // Crop Year
+            const currentYear = new Date().getFullYear();
+            document.getElementById('displayCropYear').textContent = data.crop_year || currentYear;
+
+            // Price
+            document.getElementById('displayPricePerKg').textContent = data.price_per_kg || "0";
+        }
+
+        // Panggil render dengan data
+        renderProductData(initialData);
+    </script>
 </body>
 </html>

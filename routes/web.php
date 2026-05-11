@@ -13,7 +13,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('Beans', BeanController::class);
+    Route::resource('beans', BeanController::class);
 
     Route::post('/logout', [AuthController::class,'destroy'])->name('logout');
 });

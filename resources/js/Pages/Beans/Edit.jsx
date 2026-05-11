@@ -7,43 +7,39 @@ import SelectInput from "@/Components/SelectInput";
 import { route } from "ziggy-js";
 import { useBeanForm } from "@/Hook/FormHook/useBeanForm";
 
-const Add = ({ methods }) => {
-
-    const { formData, locationData, helpers } = useBeanForm();
+const Edit = ({ beans, methods }) => {
+    const { formData, locationData, helpers } = useBeanForm(beans);
 
     return (
         <div>
             {/* Breadcrumb  */}
             <nav className="flex items-center gap-2 text-sm text-stone-500 mb-6">
-                <a href="#" className="hover:text-amber-900 transition-colors">
-                    Dashboard
+                <a
+                    href={route("beans.index")}
+                    className="hover:text-amber-900 transition-colors"
+                >
+                    Beans
                 </a>
                 <i className="fas fa-chevron-right text-xs"></i>
-                <a href="#" className="hover:text-amber-900 transition-colors">
-                    Produk
-                </a>
-                <i className="fas fa-chevron-right text-xs"></i>
-                <span className="text-stone-800 font-medium">
-                    Tambah Produk
-                </span>
+                <span className="text-stone-800 font-medium">Edit Beans</span>
             </nav>
 
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
                 <div>
                     <h1 className="text-2xl font-bold text-stone-800">
-                        Tambah Produk Kopi
+                        Edit Beans
                     </h1>
                     <p className="text-sm text-stone-500 mt-1">
-                        Lengkapi detail produk kopi baru Anda
+                        Complete the details to Change Beans
                     </p>
                 </div>
                 <a
-                    href="#"
+                    href={route("beans.index")}
                     className="inline-flex items-center gap-2 px-4 py-2.5 border border-stone-300 text-stone-700 hover:bg-stone-100 text-sm font-medium rounded-lg transition-colors"
                 >
                     <i className="fas fa-arrow-left text-xs"></i>
-                    Kembali
+                    Back
                 </a>
             </div>
 
@@ -57,19 +53,22 @@ const Add = ({ methods }) => {
                         </div>
                         <div>
                             <h2 className="font-semibold text-stone-800">
-                                Informasi Produk
+                                Beans information
                             </h2>
                             <p className="text-xs text-stone-500">
-                                Field bertanda{" "}
-                                <span className="text-red-500">*</span> wajib
-                                diisi
+                                Marked fields{" "}
+                                <span className="text-red-500">*</span> must
+                                filled
                             </p>
                         </div>
                     </div>
                 </div>
 
                 {/* Form Body */}
-                <form onSubmit={formData.submit} className="p-6">
+                <form
+                    onSubmit={(e) => formData.submit(e, beans.id)}
+                    className="p-6"
+                >
                     {/* Section: Informasi Dasar */}
                     <div className="mb-8">
                         <h3 className="text-sm font-semibold text-amber-900 uppercase tracking-wider mb-4 flex items-center gap-2">
@@ -88,7 +87,9 @@ const Add = ({ methods }) => {
                                     id="BeanName"
                                     errors={formData.errors}
                                     value={formData.data.name}
-                                    onChange={(e) => formData.setData('name', e.target.value)}
+                                    onChange={(e) =>
+                                        formData.setData("name", e.target.value)
+                                    }
                                     placeholder="example: Gayo Premium Beans"
                                 />
                                 <p className="text-xs text-stone-400 mt-1">
@@ -105,7 +106,12 @@ const Add = ({ methods }) => {
                                     default="Select the coffee species"
                                     errors={formData.errors}
                                     value={formData.data.species}
-                                    onChange={(e) => formData.setData('species', e.target.value)}
+                                    onChange={(e) =>
+                                        formData.setData(
+                                            "species",
+                                            e.target.value,
+                                        )
+                                    }
                                 >
                                     <option value="Arabica">Arabica</option>
                                     <option value="Robusta">Robusta</option>
@@ -125,7 +131,12 @@ const Add = ({ methods }) => {
                                     errors={formData.errors}
                                     placeholder="Examples: Typica, Bourbon, Catimor"
                                     value={formData.data.variety}
-                                    onChange={(e) => formData.setData('variety', e.target.value)}
+                                    onChange={(e) =>
+                                        formData.setData(
+                                            "variety",
+                                            e.target.value,
+                                        )
+                                    }
                                 />
                             </div>
                         </div>
@@ -135,7 +146,7 @@ const Add = ({ methods }) => {
                     <div className="mb-8">
                         <h3 className="text-sm font-semibold text-amber-900 uppercase tracking-wider mb-4 flex items-center gap-2">
                             <i className="fas fa-map-marker-alt text-xs"></i>
-                            Asal Daerah (Origin)
+                            Regional Origin
                         </h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -151,7 +162,9 @@ const Add = ({ methods }) => {
                                     errors={formData.errors}
                                     value={formData.data.origin_country}
                                     default={
-                                        locationData.loading ? "Loading..." : "Pilih Negara"
+                                        locationData.loading
+                                            ? "Loading..."
+                                            : "Pilih Negara"
                                     }
                                 >
                                     {locationData.allData.map((c, index) => (
@@ -170,17 +183,27 @@ const Add = ({ methods }) => {
                                 <SelectInput
                                     value={formData.data.origin_region}
                                     onChange={(e) =>
-                                        formData.setData("origin_region", e.target.value)
+                                        formData.setData(
+                                            "origin_region",
+                                            e.target.value,
+                                        )
                                     }
                                     disabled={
-                                        locationData.loading || locationData.availableStates.length === 0
+                                        locationData.loading ||
+                                        locationData.availableStates.length ===
+                                            0
                                     }
                                     label="State"
                                     icon="fas fa-map"
                                     name="origin_region"
                                     errors={formData.errors}
                                     value={formData.data.origin_region}
-                                    onChange={(e) => formData.setData('origin_region', e.target.value)}
+                                    onChange={(e) =>
+                                        formData.setData(
+                                            "origin_region",
+                                            e.target.value,
+                                        )
+                                    }
                                     default={
                                         locationData.loading
                                             ? "Loading..."
@@ -208,7 +231,12 @@ const Add = ({ methods }) => {
                                     type="text"
                                     id="sub_origin"
                                     value={formData.data.sub_origin}
-                                    onChange={(e) => formData.setData('sub_origin', e.target.value)}
+                                    onChange={(e) =>
+                                        formData.setData(
+                                            "sub_origin",
+                                            e.target.value,
+                                        )
+                                    }
                                     placeholder="Example: Mount Puntang, Cikole Village, XYZ Estate Garden"
                                 />
                                 <p className="text-xs text-stone-400 mt-1">
@@ -223,7 +251,7 @@ const Add = ({ methods }) => {
                     <div className="mb-8">
                         <h3 className="text-sm font-semibold text-amber-900 uppercase tracking-wider mb-4 flex items-center gap-2">
                             <i className="fas fa-cogs text-xs"></i>
-                            Detail Produksi
+                            Production Details
                         </h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -235,7 +263,12 @@ const Add = ({ methods }) => {
                                     default="Select Process"
                                     name="processing_method"
                                     value={formData.data.processing_method}
-                                    onChange={(e) => formData.setData('processing_method', e.target.value)}
+                                    onChange={(e) =>
+                                        formData.setData(
+                                            "processing_method",
+                                            e.target.value,
+                                        )
+                                    }
                                     errors={formData.errors}
                                 >
                                     {methods.map((mtd, index) => (
@@ -255,7 +288,12 @@ const Add = ({ methods }) => {
                                     default="Select Grade"
                                     errors={formData.errors}
                                     value={formData.data.grade}
-                                    onChange={(e) => formData.setData('grade', e.target.value)}
+                                    onChange={(e) =>
+                                        formData.setData(
+                                            "grade",
+                                            e.target.value,
+                                        )
+                                    }
                                 >
                                     <option value="1">Grade 1</option>
                                     <option value="2">Grade 2</option>
@@ -276,7 +314,12 @@ const Add = ({ methods }) => {
                                     id="crop_year"
                                     errors={formData.errors}
                                     value={formData.data.crop_year}
-                                    onChange={(e) => formData.setData('crop_year', e.target.value)}
+                                    onChange={(e) =>
+                                        formData.setData(
+                                            "crop_year",
+                                            e.target.value,
+                                        )
+                                    }
                                     placeholder={`Range : ${helpers.currentYear - 4} - ${helpers.currentYear}`}
                                 />
                             </div>
@@ -284,7 +327,7 @@ const Add = ({ methods }) => {
                             {/* Altitude Range */}
                             <div>
                                 <label className="block text-sm font-medium text-stone-700 mb-1.5">
-                                    Ketinggian (mdpl)
+                                    Height (mdpl)
                                 </label>
                                 <div className="grid grid-cols-2 gap-3">
                                     <TextInput
@@ -295,7 +338,12 @@ const Add = ({ methods }) => {
                                         placeholder="Min"
                                         errors={formData.errors}
                                         value={formData.data.altitude_min}
-                                    onChange={(e) => formData.setData('altitude_min', e.target.value)}
+                                        onChange={(e) =>
+                                            formData.setData(
+                                                "altitude_min",
+                                                e.target.value,
+                                            )
+                                        }
                                     />
                                     <TextInput
                                         name="altitude_max"
@@ -305,7 +353,12 @@ const Add = ({ methods }) => {
                                         placeholder="Max"
                                         errors={formData.errors}
                                         value={formData.data.altitude_max}
-                                    onChange={(e) => formData.setData('altitude_max', e.target.value)}
+                                        onChange={(e) =>
+                                            formData.setData(
+                                                "altitude_max",
+                                                e.target.value,
+                                            )
+                                        }
                                     />
                                 </div>
                                 <p className="text-xs text-stone-400 mt-1">
@@ -319,7 +372,7 @@ const Add = ({ methods }) => {
                     <div className="mb-8">
                         <h3 className="text-sm font-semibold text-amber-900 uppercase tracking-wider mb-4 flex items-center gap-2">
                             <i className="fas fa-boxes text-xs"></i>
-                            Stok & Harga
+                            Price
                         </h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -334,7 +387,12 @@ const Add = ({ methods }) => {
                                     placeholder="0"
                                     errors={formData.errors}
                                     value={formData.data.price_per_kg}
-                                    onChange={(e) => formData.setData('price_per_kg', e.target.value)}
+                                    onChange={(e) =>
+                                        formData.setData(
+                                            "price_per_kg",
+                                            e.target.value,
+                                        )
+                                    }
                                 />
                             </div>
                         </div>
@@ -362,6 +420,6 @@ const Add = ({ methods }) => {
     );
 };
 
-Add.layout = (page) => <AuthenticatedLayout children={page} />;
+Edit.layout = (page) => <AuthenticatedLayout children={page} />;
 
-export default Add;
+export default Edit;

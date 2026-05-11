@@ -1,11 +1,12 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layout/AuthenticatedLayout";
 import TableHeader from "@/Components/TableComponent/TableHeader";
-import { usePage } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 import Table from "@/Components/TableComponent/Table";
 import LinkButton from "@/Components/LinkButton";
-import TableFooter from "../../Components/TableComponent/TableFooter";
+import TableFooter from "@/Components/TableComponent/TableFooter";
 import { route } from "ziggy-js";
+import { showConfirm } from "../../Utils/swal";
 
 const Index = () => {
     const { beans } = usePage().props;
@@ -21,7 +22,17 @@ const Index = () => {
         { label: "Action", className: "text-center" },
     ];
 
-    // console.log(beans);
+    const handleDelete = (id) => {
+        showConfirm(
+            "Delete?",
+            "Are you sure you want to delete this data?",
+            "Yes, Delete",
+        ).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("beans.destroy", id));
+            }
+        });
+    };
 
     return (
         <div className="max-w-7xl mx-auto space-y-6">
@@ -35,10 +46,9 @@ const Index = () => {
                         Kelola semua produk kopi Anda
                     </p>
                 </div>
-                <LinkButton href={route('Beans.create')} icon="fas fa-plus" >
+                <LinkButton href={route("beans.create")} icon="fas fa-plus">
                     Add Product
                 </LinkButton>
-
             </div>
 
             {/* Filter & Search Bar */}
@@ -105,16 +115,6 @@ const Index = () => {
             <div className="bg-white rounded-xl border border-stone-200 shadow-sm overflow-hidden">
                 {/* Table Toolbar */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-5 py-4 border-b border-stone-200 gap-3">
-                    <div className="flex items-center gap-2 text-sm text-stone-600">
-                        <span>Menampilkan</span>
-                        <select className="border border-stone-300 rounded px-2 py-1 text-sm bg-white">
-                            <option>10</option>
-                            <option>25</option>
-                            <option>50</option>
-                        </select>
-                        <span>dari 24 data</span>
-                    </div>
-
                     <div className="flex items-center gap-2">
                         <button
                             className="p-2 text-stone-500 hover:text-amber-900 hover:bg-stone-100 rounded-lg transition-colors"
@@ -146,7 +146,12 @@ const Index = () => {
                             className="hover:bg-stone-50 transition-colors"
                         >
                             <td className="px-5 py-4">
-                                <span className="text-stone-700">{index + 1 + (beans.current_page - 1) * beans.per_page}</span>
+                                <span className="text-stone-700">
+                                    {index +
+                                        1 +
+                                        (beans.current_page - 1) *
+                                            beans.per_page}
+                                </span>
                             </td>
                             <td className="px-5 py-4">
                                 <div className="flex items-center gap-3">
@@ -171,9 +176,8 @@ const Index = () => {
                                 </span>
                             </td>
                             <td className="px-5 py-4">
-                                <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 text-green-700 text-xs rounded-full font-medium">
-                                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                                    Tersedia
+                                <span className="font-medium text-stone-800">
+                                    {item.stock_kg} Kg
                                 </span>
                             </td>
                             <td className="px-5 py-4">
@@ -189,21 +193,24 @@ const Index = () => {
 
                             <td className="px-5 py-4">
                                 <div className="flex items-center justify-center gap-1">
-                                    <button
-                                        className="p-2 text-stone-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors"
+                                    <Link
+                                        href={route("beans.edit", item.id)}
+                                        className="p-2 text-stone-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors cursor-pointer"
                                         title="Edit"
                                     >
                                         <i className="fas fa-edit text-sm"></i>
-                                    </button>
-                                    <button
-                                        className="p-2 text-stone-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                    </Link>
+                                    <Link
+                                        href={route("beans.show", item.id)}
+                                        className="p-2 text-stone-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
                                         title="Detail"
                                     >
                                         <i className="fas fa-eye text-sm"></i>
-                                    </button>
+                                    </Link>
                                     <button
-                                        className="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                        title="Hapus"
+                                        type="button"
+                                        onClick={() => handleDelete(item.id)}
+                                        className="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                                     >
                                         <i className="fas fa-trash-alt text-sm"></i>
                                     </button>

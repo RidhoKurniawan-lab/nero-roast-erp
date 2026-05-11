@@ -25,9 +25,9 @@ class BeanController extends Controller
     public function create()
     {
 
-        $Methods = Bean::distinct()->pluck('processing_method');
+        $methods = Bean::distinct()->pluck('processing_method');
 
-        return inertia::render('Beans/Add', ['methods' => $Methods]);
+        return inertia::render('Beans/Add', ['methods' => $methods]);
     }
 
     /**
@@ -39,38 +39,47 @@ class BeanController extends Controller
 
         Bean::create($credentials);
 
-        return redirect()->route('Beans.index')->with('success', 'Coffee beans added successfully!');
+        return redirect()->route('beans.index')->with('success', 'Coffee beans added successfully!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Bean $bean)
     {
-        //
+        return inertia::render('Beans/Show', ['bean'=> $bean]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Bean $bean)
     {
-        //
+
+        $Methods = Bean::distinct()->pluck('processing_method');
+
+        return inertia::render('Beans/Edit', ['beans' => $bean, 'methods'=> $Methods]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreBeanRequest $request, Bean $bean)
     {
-        //
+        $credentials = $request->validated();
+
+        $bean->update($credentials);
+
+        return redirect()->route('beans.index')->with('success','Coffee beans successfully updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Bean $bean)
     {
-        //
+        $bean->delete();
+
+        return redirect()->route('beans.index')->with('success', 'Bean deleted successfully!');
     }
 }

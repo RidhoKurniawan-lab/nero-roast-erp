@@ -62,8 +62,8 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
                     </NavLink>
 
                     <NavLink
-                        href={route("Beans.index")}
-                        active={route().current("Beans.*")}
+                        href={route("beans.index")}
+                        active={route().current("beans.*")}
                         icon="fas fa-coffee"
                     >
                         Green Beans
