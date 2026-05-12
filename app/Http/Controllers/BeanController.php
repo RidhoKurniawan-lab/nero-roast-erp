@@ -15,7 +15,7 @@ class BeanController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = $request->only(['search']);
+        $filter = $request->only(['search', 'species', 'grade']);
 
         $beans = Bean::latest()
             ->filter($filter)

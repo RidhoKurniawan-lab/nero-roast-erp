@@ -15,9 +15,21 @@ class Bean extends Model
     public function scopeFilter(Builder $query, array $filter)
     {
         $query->when($filter['search'] ?? null, function ($query, $search) {
-            $query->where(function ($q) use ($search){
-                $q->where('name','like',"%$search%" )
-                ->orWhere('processing_method', 'like', "%$search%");
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")
+                    ->orWhere('processing_method', 'like', "%$search%");
+            });
+        });
+
+        $query->when($filter['species'] ?? null, function ($static, $species) {
+            $static->where(function ($q) use ($species) {
+                $q->where('species', $species);
+            });
+        });
+
+        $query->when($filter['grade'] ?? null, function ($static, $grade) {
+            $static->where(function ($q) use ($grade) {
+                $q->where('grade', $grade);
             });
         });
     }

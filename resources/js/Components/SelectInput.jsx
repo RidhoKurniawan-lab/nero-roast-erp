@@ -9,14 +9,15 @@ export default function SelectInput({
     ...props
 }) {
     return (
-        <>
-            <label
+        <>  
+            {label &&
+                <label
                 htmlFor="species"
                 className="block text-sm font-medium text-stone-700 mb-1.5"
             >
                 {label + " "}
                 <span className="text-red-500">*</span>
-            </label>
+            </label>}
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     {icon && (

@@ -14,7 +14,7 @@ export default function TextInput({
 })
 {
     return (
-        <div>
+        <div className="flex-1">
             {label && (
                 <label
                     className="block text-stone-700 text-sm font-medium mb-1.5 cursor-pointer"

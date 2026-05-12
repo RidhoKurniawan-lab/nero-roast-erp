@@ -8,10 +8,21 @@ import TableFooter from "@/Components/TableComponent/TableFooter";
 import { route } from "ziggy-js";
 import { showConfirm } from "../../Utils/swal";
 import { useSearch } from "../../Hook/useSearch";
+import SelectInput from "@/Components/SelectInput";
+import TextInput from "@/Components/TextInput";
 
 const Index = ({ beans, filter }) => {
-
-    const { search, handleSearchChange } = useSearch(filter);
+    const {
+        search,
+        species,
+        grade,
+        activeFilter,
+        removeFilter,
+        clearAllFilters,
+        handleSearchChange,
+        handleSpeciesFilter,
+        handleGradeFilter
+    } = useSearch(filter);
 
     const tableHeader = [
         { label: "#" },
@@ -54,65 +65,81 @@ const Index = ({ beans, filter }) => {
             </div>
 
             {/* Filter & Search Bar */}
-            <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-4">
+            <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-4 transition-all duration-500 ease-in-out">
                 <div className="flex flex-col sm:flex-row gap-3">
                     {/* Search */}
-                    <div className="relative flex-1">
-                        <i className="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i>
-                        <input
-                            type="text"
-                            value={search}
-                            onChange={handleSearchChange}
-                            placeholder="Cari produk..."
-                            className="w-full pl-10 pr-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10"
-                        />
-                    </div>
+                    <TextInput
+                        name="search"
+                        icon="fas fa-search"
+                        type="text"
+                        placeholder="Cari produk..."
+                        value={search}
+                        onChange={handleSearchChange}
+                    />
 
-                    {/* Filter Kategori */}
-                    <select className="px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 bg-white">
-                        <option>Semua Kategori</option>
-                        <option>Kopi Hitam</option>
-                        <option>Kopi Susu</option>
-                        <option>Manual Brew</option>
-                        <option>Non Kopi</option>
-                    </select>
+                    {/* Filter Species */}
+                    <SelectInput
+                        name="species"
+                        icon="fas fa-dna"
+                        default="Select species"
+                        className="pr-10"
+                        value={species}
+                        onChange={handleSpeciesFilter}
+                    >
+                        <option value="Arabica">Arabica</option>
+                        <option value="Robusta">Robusta</option>
+                        <option value="Liberica">Liberica</option>
+                        <option value="Excelsa">Excelsa</option>
+                    </SelectInput>
 
-                    {/* Filter Status */}
-                    <select className="px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10 bg-white">
-                        <option>Semua Status</option>
-                        <option>Tersedia</option>
-                        <option>Habis</option>
-                        <option>Draft</option>
-                    </select>
-
-                    {/* Filter Button */}
-                    <button className="px-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-600 hover:bg-stone-50 transition-colors flex items-center gap-2">
-                        <i className="fas fa-filter text-xs"></i>
-                        Filter
-                    </button>
+                    {/* Filter Grade */}
+                    <SelectInput
+                        icon="fas fa-star"
+                        name="grade"
+                        default="Select Grade"
+                        className="pr-10"
+                        value={grade}
+                        onChange={handleGradeFilter}
+                    >
+                        <option value="1">Grade 1</option>
+                        <option value="2">Grade 2</option>
+                        <option value="3">Grade 3</option>
+                        <option value="4">Grade 4</option>
+                        <option value="5">Grade 5</option>
+                        <option value="6">Grade 6</option>
+                    </SelectInput>
                 </div>
 
                 {/* Active Filters */}
-                <div className="flex flex-wrap items-center gap-2 mt-3">
-                    <span className="text-xs text-stone-500">
-                        Filter aktif:
-                    </span>
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-50 text-amber-900 text-xs rounded-full">
-                        Kopi Susu
-                        <button className="hover:text-red-500">
-                            <i className="fas fa-times"></i>
-                        </button>
-                    </span>
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-50 text-amber-900 text-xs rounded-full">
-                        Tersedia
-                        <button className="hover:text-red-500">
-                            <i className="fas fa-times"></i>
-                        </button>
-                    </span>
-                    <button className="text-xs text-red-500 hover:text-red-700 ml-2">
-                        Hapus semua
-                    </button>
-                </div>
+                {activeFilter.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-2 mt-3">
+                        <span className="text-xs text-stone-500">
+                            Active filters:
+                        </span>
+                        {activeFilter.map((filter) => (
+                            <span
+                                key={filter.key}
+                                className="inline-flex items-center gap-1 px-3 py-1 bg-amber-50 text-amber-900 text-xs rounded-full"
+                            >
+                                {filter.label}
+                                <button
+                                    onClick={() => removeFilter(filter.key)}
+                                    className="hover:text-red-500"
+                                >
+                                    <i className="fas fa-times cursor-pointer"></i>
+                                </button>
+                            </span>
+                        ))}
+                        {activeFilter.length > 0 && (
+                            <button
+                                onClick={clearAllFilters}
+                                className="text-xs text-red-500 hover:text-red-700 ml-2 cursor-pointer"
+                            >
+                                Delete All
+                            </button>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* Table Card */}
@@ -144,84 +171,106 @@ const Index = ({ beans, filter }) => {
                 {/* Table */}
 
                 <Table tableHeader={tableHeader}>
-                    {beans.data.map((item, index) => (
-                        <tr
-                            key={index}
-                            className="hover:bg-stone-50 transition-colors"
-                        >
-                            <td className="px-5 py-4">
-                                <span className="text-stone-700">
-                                    {index +
-                                        1 +
-                                        (beans.current_page - 1) *
-                                            beans.per_page}
-                                </span>
-                            </td>
-                            <td className="px-5 py-4">
-                                <div className="flex items-center gap-3">
-                                    <div>
-                                        <p className="font-medium text-stone-800">
-                                            {item.name}
-                                        </p>
-                                        <p className="text-xs text-stone-500">
-                                            {item.origin_region}
-                                        </p>
+                    {beans.data.length > 0 ? (
+                        beans.data.map((item, index) => (
+                            <tr
+                                key={index}
+                                className="hover:bg-stone-50 transition-colors"
+                            >
+                                <td className="px-5 py-4">
+                                    <span className="text-stone-700">
+                                        {index +
+                                            1 +
+                                            (beans.current_page - 1) *
+                                                beans.per_page}
+                                    </span>
+                                </td>
+                                <td className="px-5 py-4">
+                                    <div className="flex items-center gap-3">
+                                        <div>
+                                            <p className="font-medium text-stone-800">
+                                                {item.name}
+                                            </p>
+                                            <p className="text-xs text-stone-500">
+                                                {item.origin_region}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td className="px-5 py-4">
-                                <span className="text-stone-700">
-                                    {item.species}
-                                </span>
-                            </td>
-                            <td className="px-5 py-4">
-                                <span className="font-medium text-stone-800">
-                                    {item.processing_method}
-                                </span>
-                            </td>
-                            <td className="px-5 py-4">
-                                <span className="font-medium text-stone-800">
-                                    {item.stock_kg} Kg
-                                </span>
-                            </td>
-                            <td className="px-5 py-4">
-                                <span className="font-medium text-stone-800 text-center">
-                                   Grade {item.grade}
-                                </span>
-                            </td>
-                            <td className="px-5 py-4">
-                                <span className="font-medium text-stone-800">
-                                    {item.crop_year}
-                                </span>
-                            </td>
+                                </td>
+                                <td className="px-5 py-4">
+                                    <span className="text-stone-700">
+                                        {item.species}
+                                    </span>
+                                </td>
+                                <td className="px-5 py-4">
+                                    <span className="font-medium text-stone-800">
+                                        {item.processing_method}
+                                    </span>
+                                </td>
+                                <td className="px-5 py-4">
+                                    <span className="font-medium text-stone-800">
+                                        {item.stock_kg} Kg
+                                    </span>
+                                </td>
+                                <td className="px-5 py-4">
+                                    <span className="font-medium text-stone-800 text-center">
+                                        Grade {item.grade}
+                                    </span>
+                                </td>
+                                <td className="px-5 py-4">
+                                    <span className="font-medium text-stone-800">
+                                        {item.crop_year}
+                                    </span>
+                                </td>
 
-                            <td className="px-5 py-4">
-                                <div className="flex items-center justify-center gap-1">
-                                    <Link
-                                        href={route("beans.edit", item.id)}
-                                        className="p-2 text-stone-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors cursor-pointer"
-                                        title="Edit"
-                                    >
-                                        <i className="fas fa-edit text-sm"></i>
-                                    </Link>
-                                    <Link
-                                        href={route("beans.show", item.id)}
-                                        className="p-2 text-stone-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
-                                        title="Detail"
-                                    >
-                                        <i className="fas fa-eye text-sm"></i>
-                                    </Link>
-                                    <button
-                                        type="button"
-                                        onClick={() => handleDelete(item.id)}
-                                        className="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
-                                    >
-                                        <i className="fas fa-trash-alt text-sm"></i>
-                                    </button>
+                                <td className="px-5 py-4">
+                                    <div className="flex items-center justify-center gap-1">
+                                        <Link
+                                            href={route("beans.edit", item.id)}
+                                            className="p-2 text-stone-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors cursor-pointer"
+                                            title="Edit"
+                                        >
+                                            <i className="fas fa-edit text-sm"></i>
+                                        </Link>
+                                        <Link
+                                            href={route("beans.show", item.id)}
+                                            className="p-2 text-stone-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
+                                            title="Detail"
+                                        >
+                                            <i className="fas fa-eye text-sm"></i>
+                                        </Link>
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                handleDelete(item.id)
+                                            }
+                                            className="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                                        >
+                                            <i className="fas fa-trash-alt text-sm"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td
+                                colSpan={tableHeader.length}
+                                className="px-5 py-10 text-center"
+                            >
+                                <div className="flex flex-col items-center justify-center gap-2">
+                                    <i className="fas fa-search text-stone-300 text-3xl mb-2"></i>
+                                    <p className="text-stone-500 font-medium">
+                                        Data Not Found
+                                    </p>
+                                    <p className="text-stone-400 text-sm">
+                                        Please filter with different keywords or
+                                        criteria.
+                                    </p>
                                 </div>
                             </td>
                         </tr>
-                    ))}
+                    )}
                 </Table>
 
                 {/* Table Footer / Pagination */}
