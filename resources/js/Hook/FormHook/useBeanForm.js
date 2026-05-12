@@ -3,7 +3,7 @@ import { useLocationData } from "../useLocationData";
 import { route } from "ziggy-js";
 import React from "react";
 
-export const useBeanForm = (initialData = {}) => {
+export function useBeanForm(initialData = {}) {
     const currentYear = new Date().getFullYear();
 
     const { data, setData, post, put, processing, errors } = useForm({

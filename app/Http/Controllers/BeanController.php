@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBeanRequest;
 use App\Models\Bean;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Request;
 use inertia\inertia;
 
 class BeanController extends Controller
@@ -12,11 +13,19 @@ class BeanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $beans = Bean::latest('created_at')->paginate(10);
+        $filter = $request->only(['search']);
 
-        return inertia::render('Beans/Index', ['beans' => $beans]);
+        $beans = Bean::latest()
+            ->filter($filter)
+            ->paginate(10)
+            ->withQueryString();
+
+        return inertia::render('Beans/Index', [
+            'beans' => $beans,
+            'filter' => $filter ?: new \stdClass
+            ]);
     }
 
     /**

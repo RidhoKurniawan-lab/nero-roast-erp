@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layout/AuthenticatedLayout";
 import TableHeader from "@/Components/TableComponent/TableHeader";
 import { Link, router, usePage } from "@inertiajs/react";
@@ -7,16 +7,18 @@ import LinkButton from "@/Components/LinkButton";
 import TableFooter from "@/Components/TableComponent/TableFooter";
 import { route } from "ziggy-js";
 import { showConfirm } from "../../Utils/swal";
+import { useSearch } from "../../Hook/useSearch";
 
-const Index = () => {
-    const { beans } = usePage().props;
+const Index = ({ beans, filter }) => {
+
+    const { search, handleSearchChange } = useSearch(filter);
 
     const tableHeader = [
         { label: "#" },
         { label: "Name" },
         { label: "Species" },
         { label: "Process" },
-        { label: "Stock Status" },
+        { label: "Stock" },
         { label: "Grade", className: "text-center" },
         { label: "Crop Year" },
         { label: "Action", className: "text-center" },
@@ -59,6 +61,8 @@ const Index = () => {
                         <i className="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i>
                         <input
                             type="text"
+                            value={search}
+                            onChange={handleSearchChange}
                             placeholder="Cari produk..."
                             className="w-full pl-10 pr-4 py-2.5 border border-stone-300 rounded-lg text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/10"
                         />
@@ -182,7 +186,7 @@ const Index = () => {
                             </td>
                             <td className="px-5 py-4">
                                 <span className="font-medium text-stone-800 text-center">
-                                    {item.grade}
+                                   Grade {item.grade}
                                 </span>
                             </td>
                             <td className="px-5 py-4">
