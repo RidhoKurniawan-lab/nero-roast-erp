@@ -33,4 +33,9 @@ class Bean extends Model
             });
         });
     }
+
+
+    public function stockLogs(){
+        return $this->hasMany(StockLog::class);
+    }
 }
