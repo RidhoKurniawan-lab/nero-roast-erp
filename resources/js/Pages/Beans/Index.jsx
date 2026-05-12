@@ -20,8 +20,8 @@ const Index = ({ beans, filter }) => {
         removeFilter,
         clearAllFilters,
         handleSearchChange,
-        handleSpeciesFilter,
-        handleGradeFilter
+        handleSpeciesChange,
+        handleGradeChange,
     } = useSearch(filter);
 
     const tableHeader = [
@@ -84,7 +84,7 @@ const Index = ({ beans, filter }) => {
                         default="Select species"
                         className="pr-10"
                         value={species}
-                        onChange={handleSpeciesFilter}
+                        onChange={handleSpeciesChange}
                     >
                         <option value="Arabica">Arabica</option>
                         <option value="Robusta">Robusta</option>
@@ -99,7 +99,7 @@ const Index = ({ beans, filter }) => {
                         default="Select Grade"
                         className="pr-10"
                         value={grade}
-                        onChange={handleGradeFilter}
+                        onChange={handleGradeChange}
                     >
                         <option value="1">Grade 1</option>
                         <option value="2">Grade 2</option>
